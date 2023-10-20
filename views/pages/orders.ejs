@@ -1,0 +1,31 @@
+<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+
+<main>
+  <div class="container">
+    <h1><centre>You have <%= orderCount %> order(s).</centre></h1>
+
+    <table class="table">
+      <thead>
+        <th>Order Id</th>
+        <th>Order Total</th>
+        <th>Order Details</th>
+
+        <tr>
+          <% orderDetails.forEach(function (order) { %>
+
+          <td><%= order.id %></td>
+          <td>$ <%= order.total %></td>
+          <td>
+            <form action="/order">
+              <button class="btn btn-primary">View Details</button>
+            </form>
+          </td>
+
+          <% })%>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</main>
+
+<%- include ('../partials/footer') %>

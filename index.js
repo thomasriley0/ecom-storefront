@@ -252,5 +252,26 @@ app.get("/profile", (req, res) => {
   res.render("pages/profile", { user: user });
 });
 
+app.get("/orders", (req, res) => {
+  const getOrders = "SELECT * FROM order_details WHERE user_id = $1;";
+  db.any(getOrders, [user.user_id])
+    .then((orderDetails) => {
+      console.log(orderDetails);
+      res.render("pages/orders", {
+        orderDetails: orderDetails,
+        orderCount: Object.keys(orderDetails).length,
+        user: user,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("pages/orders", {
+        orderDetails: [],
+        orderCount: 0,
+        user: user,
+      });
+    });
+});
+
 app.listen(3000);
 console.log("Server is listening on port 3000");
