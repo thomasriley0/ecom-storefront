@@ -18,7 +18,11 @@
         >
           <h3>$ <%= product.price %></h3>
           <form action="/add_to_cart">
-            <button name="id" value="<%=product.id%>" class="btn btn-primary">
+            <button
+              name="id"
+              value="<%=product.id%>"
+              class="atcBtn btn btn-primary"
+            >
               Add to Cart
             </button>
           </form>

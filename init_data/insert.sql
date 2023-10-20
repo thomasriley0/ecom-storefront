@@ -1,4 +1,5 @@
-INSERT INTO "users" (username, password, email, first_name, last_name, mobile, created_at, modified_at) VALUES('usernameTest', '$2a$12$4vDQ0CHc8sjgQGVHpiIvtekvvBaIiG2NZooaCmZNEFmOvHokxDBie', 'johndoe@gmail.com', 'john', 'doe', '13193848584', '2023-10-19 18:39:00', '2023-10-19 18:39:00');
+INSERT INTO "users" (username, password, email, first_name, last_name, mobile, created_at, modified_at) VALUES('johndoe', 'pass', 'johndoe@gmail.com', 'john', 'doe', '13193848584', '2023-10-19 18:39:00', '2023-10-19 18:39:00');
+INSERT INTO "users" (username, password, email, first_name, last_name, mobile, created_at, modified_at) VALUES('johhnyapple', 'pass', 'johhnyapple@gmail.com', 'johnny', 'apple', '12193548524', '2023-10-20 18:39:00', '2023-10-20 18:39:00');
 
 INSERT INTO "user_address"(user_id, address_line_1, address_line_2, city, postal_code, mobile) VALUES (1, '130 example st', 'apt 15', 'boulder', '80302', '1234567890');
 
@@ -23,9 +24,10 @@ INSERT INTO "product"(productName, productDesc, imageLink, SKU, category_id, sub
 INSERT INTO "product"(productName, productDesc, imageLink, SKU, category_id, subcategory_id, inventory_id, price, created_at, modified_at) VALUES ('Metal Desk Lamp', 'This lamp measures: 12.5" (H) x 4.7" (D) x 4.7" (W), the perfect little gold table lamp for any desk, with a solid plated aluminum frame and standard base.','https://assets.wfcdn.com/im/91211542/resize-h800-w800%5Ecompr-r85/1932/193245922/Metal+Desk+Lamp.jpg','A5', 2, 2, 5, 99.99, '2023-10-21 18:39:00', '2023-10-21 18:39:00' );
 INSERT INTO "product"(productName, productDesc, imageLink, SKU, category_id, subcategory_id, inventory_id, price, created_at, modified_at) VALUES ('Light Dimmable Sputnik Modern Linear Chandelier', ' The 12-light Sputnik Chandelier is a spectacularly versatile piece that complements many different decor styles. Mid-century Brushed Brass finish pairs perfectly to elevate this industrial pendant to luxury. ','https://assets.wfcdn.com/im/97451914/resize-h445%5Ecompr-r85/2440/244050546/Croner+12+-+Light+Dimmable+Sputnik+Modern+Linear+Chandelier.jpg','A6', 2, 3, 6, 214.99, '2023-10-22 18:39:00', '2023-10-22 18:39:00' );
 
-INSERT INTO "shopping_session" (user_id, total, created_at, modified_at) VALUES (1, 67.42, '2023-10-19 17:12:00', '2023-10-19 17:12:00');
+INSERT INTO "shopping_session" (user_id, total, created_at, modified_at) VALUES (1, 147.41, '2023-10-19 17:12:00', '2023-10-19 17:12:00');
 
 INSERT INTO "cart_item" (session_id, product_id, quantity, created_at, modified_at) VALUES (1, 1, 1, '2023-10-19 17:12:00', '2023-10-19 17:12:00');
+INSERT INTO "cart_item" (session_id, product_id, quantity, created_at, modified_at) VALUES (1, 2, 1, '2023-10-19 17:13:00', '2023-10-19 17:13:00');
 
 INSERT INTO "payment_details"(amount, provider, invoice_id, status, created_at, modified_at) VALUES (67.42, 'Stripe', 'in_1NypNj2eZvKYlo2CY8o2vYlx', 'Complete', '2023-10-19 17:12:00', '2023-10-19 17:12:00');
 

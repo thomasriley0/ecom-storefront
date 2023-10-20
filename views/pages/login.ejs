@@ -1,0 +1,33 @@
+<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+
+<form
+  action="/login"
+  method="POST"
+  style="
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  "
+>
+  <div class="mb-3" style="width: 300px">
+    <label for="email" class="form-label">Email</label>
+    <input type="email" name="email" class="form-control" id="email" />
+  </div>
+  <div class="mb-3" style="width: 300px">
+    <label for="password" class="form-label">Password</label>
+    <input type="password" name="password" class="form-control" id="password" />
+  </div>
+
+  <button style="width: 300px" class="btn btn-primary" type="submit">
+    Login
+  </button>
+</form>
+<style>
+  body {
+    height: 100vh !important;
+  }
+</style>
+
+<%- include ('../partials/footer') %>

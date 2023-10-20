@@ -1,0 +1,25 @@
+<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+
+<main>
+  <div class="container">
+    <h1><centre>Hi there <%= user.username %> !</centre></h1>
+
+    <table class="table">
+      <thead>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Mobile Number</th>
+
+        <tr>
+          <td><%= user.first_name %></td>
+          <td><%= user.last_name %></td>
+          <td><%= user.email %></td>
+          <td><%= user.mobile %></td>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</main>
+
+<%- include ('../partials/footer') %>

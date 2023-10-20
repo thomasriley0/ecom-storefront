@@ -2,7 +2,7 @@ CREATE TABLE "users"(
   id SERIAL PRIMARY KEY, 
   username VARCHAR(32) NOT NULL, 
   password TEXT NOT NULL, 
-  email VARCHAR(128)  NOT NULL,
+  email VARCHAR(128) NOT NULL,
   first_name VARCHAR(64), 
   last_name VARCHAR(64), 
   mobile VARCHAR(32), 

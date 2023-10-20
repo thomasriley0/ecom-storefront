@@ -1,6 +1,44 @@
 <%- include ('../partials/header') %> <%- include ('../partials/menu') %>
 <main>
-  <div class="container"></div>
+  <div class="container">
+    <% if (itemCount == 0) {%>
+    <h1>Your Cart is empty.</h1>
+
+    <%} else { %>
+
+    <h1>You have <%= itemCount %> item(s) in your cart. %></h1>
+
+    <div class="cartContainer">
+      <h5>Shopping Cart</h5>
+
+      <% cartDetails.forEach(function(product) { %>
+      <div class="d-flex flex-row cartItem">
+        <img src="<%= product.imagelink %>" alt="<%= product.productdesc %>" />
+        <div class="d-flex flex-column cartBody">
+          <h4><%=product.productname%></h4>
+          <h6>$<%= product.price %></h6>
+          <p>Quantity: <%= product.quantity %></p>
+          <form action="/delete_item">
+            <button name="id" value="<%=product.id%>" class="btn btn-danger">
+              Delete
+            </button>
+          </form>
+        </div>
+      </div>
+      <% })%>
+
+      <div class="d-flex flex-column subTotal">
+        <h3>
+          Subtotal: (<%= itemCount %> items):
+          <strong>$ <%= cartDetails[0].total %> </strong>
+          <form action="/checkout">
+            <button class="btn btn-primary">Proceed to Checkout</button>
+          </form>
+        </h3>
+      </div>
+      <% }%>
+    </div>
+  </div>
 </main>
 
 <%- include ('../partials/footer') %>

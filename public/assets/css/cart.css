@@ -1,0 +1,14 @@
+.cartItem {
+  max-height: 400px;
+  height: 200px;
+  padding: 5px;
+}
+
+.cartContainer {
+  background-color: white;
+  margin: 25px;
+}
+
+.subTotal {
+  margin-top: 50px;
+}

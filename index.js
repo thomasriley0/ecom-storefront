@@ -14,6 +14,17 @@ const dbConfig = {
   password: process.env.POSTGRES_PASSWORD,
 };
 
+var user = {
+  user_id: undefined,
+  username: undefined,
+  email: undefined,
+  first_name: undefined,
+  last_name: undefined,
+  mobile: undefined,
+  created_at: undefined,
+  modified_at: undefined,
+};
+
 const db = pgp(dbConfig);
 
 // db test
@@ -54,12 +65,14 @@ app.get("/", (req, res) => {
   db.any(productsQuery)
     .then((products) => {
       res.render("pages/index", {
-        products,
+        products: products,
+        user: user,
       });
     })
     .catch((err) => {
       res.render("pages/index", {
         products: [],
+        user: user,
         error: true,
         message: err.message,
       });
@@ -72,12 +85,14 @@ app.get("/lighting", (req, res) => {
     .then((products) => {
       res.render("pages/category", {
         products: products,
+        user: user,
         category: "Lighting",
       });
     })
     .catch((err) => {
       res.render("pages/category", {
         products: [],
+        user: user,
         category: "Lighting",
         error: true,
         message: err.message,
@@ -92,12 +107,14 @@ app.get("/lighting/table-lamps", (req, res) => {
     .then((products) => {
       res.render("pages/category", {
         products: products,
+        user: user,
         category: "Table Lamps",
       });
     })
     .catch((err) => {
       res.render("pages/category", {
         products: [],
+        user: user,
         category: "Table Lamps",
         error: true,
         message: err.message,
@@ -112,12 +129,14 @@ app.get("/lighting/floor-lamps", (req, res) => {
     .then((products) => {
       res.render("pages/category", {
         products: products,
+        user: user,
         category: "Floor Lamps",
       });
     })
     .catch((err) => {
       res.render("pages/category", {
         products: [],
+        user: user,
         category: "Floor Lamps",
         error: true,
         message: err.message,
@@ -132,12 +151,14 @@ app.get("/lighting/light-fixtures", (req, res) => {
     .then((products) => {
       res.render("pages/category", {
         products: products,
+        user: user,
         category: "Light Fixtures",
       });
     })
     .catch((err) => {
       res.render("pages/category", {
         products: [],
+        user: user,
         category: "Light Fixtures",
         error: true,
         message: err.message,
@@ -149,22 +170,56 @@ app.get("/product", (req, res) => {
   const productQuery = "SELECT * FROM product WHERE id = $1;";
   db.any(productQuery, [req.query.id])
     .then((product) => {
-      res.render("pages/product", { product: product[0] });
+      res.render("pages/product", { product: product[0], user: user });
     })
     .catch((err) => {
       res.render("pages/product", {
         product: null,
+        user: user,
         error: true,
         message: err.message,
       });
     });
 });
 
-app.get("/cart", (req, res) => {
-  res.render("pages/cart");
+app.get("/login", (req, res) => {
+  res.render("pages/login", { user: user });
 });
 
-/*
+// Login submission
+app.post("/login", (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const query = "select * from users where email = $1 and password = $2;";
+  const values = [email, password];
+
+  db.one(query, values)
+    .then((data) => {
+      user.user_id = data.id;
+      user.username = data.username;
+      user.email = data.email;
+      user.first_name = data.first_name;
+      user.last_name = data.last_name;
+      user.mobile = data.mobile;
+      user.created_at = data.created_at;
+      user.modified_at = data.modified_at;
+
+      req.session.user = user;
+      req.session.save();
+      res.redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+      res.redirect("/login");
+    });
+});
+
+app.get("/logout", (req, res) => {
+  req.session.destroy();
+  user = {};
+  res.render("pages/login", { user: user });
+});
+
 // Authentication middleware.
 const auth = (req, res, next) => {
   if (!req.session.user) {
@@ -175,7 +230,27 @@ const auth = (req, res, next) => {
 
 app.use(auth);
 
-*/
+app.get("/cart", (req, res) => {
+  const getCart =
+    "SELECT * FROM cart_item INNER JOIN shopping_session on cart_item.session_id = shopping_session.id JOIN product on product.id = cart_item.product_id WHERE user_id = $1;";
+  db.any(getCart, [user.user_id])
+    .then((cartDetails) => {
+      console.log(cartDetails);
+      res.render("pages/cart", {
+        cartDetails: cartDetails,
+        itemCount: Object.keys(cartDetails).length,
+        user: user,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("pages/cart", { cartDetails: [], user: user });
+    });
+});
+
+app.get("/profile", (req, res) => {
+  res.render("pages/profile", { user: user });
+});
 
 app.listen(3000);
 console.log("Server is listening on port 3000");
