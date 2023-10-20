@@ -1,0 +1,30 @@
+.list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.list li {
+  margin: 5px;
+}
+
+#footerContainer {
+  padding-left: 30px;
+}
+
+.footerListHeader {
+  margin-left: 10px;
+}
+
+#topFooterContainer * {
+  padding-left: 5px;
+}
+
+#bottomFooterContainer {
+  padding-right: 15px;
+  margin-top: 10px;
+}
+
+#footerCopyright {
+  font-size: 13px;
+}

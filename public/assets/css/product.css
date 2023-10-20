@@ -1,10 +1,3 @@
-.productContainer {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
 .productImage {
   width: 70%;
   min-width: 350px;
@@ -12,8 +5,8 @@
 }
 
 @media only screen and (max-width: 900px) {
-  .productContainer {
-    flex-direction: column;
+  #productContainer {
+    flex-direction: column !important;
   }
 
   .productImage {
@@ -21,12 +14,12 @@
   }
 }
 
-.productBody {
-  display: flex;
-  flex-direction: column;
+#productBody {
   padding: 50px;
-  justify-content: center;
-  align-items: left;
+}
+
+#productBody * {
+  padding: 10px;
 }
 
 .btn {

@@ -2,16 +2,28 @@
 
 <main>
   <div class="container">
-    <div class="productContainer">
+    <div
+      id="productContainer"
+      class="d-flex flex-row justify-content-center align-items-center"
+    >
       <img class="productImage" src="<%= product.imagelink %>" alt="" />
-      <div class="productBody">
+      <div
+        id="productBody"
+        class="d-flex flex-column justify-content-center align-items-left"
+      >
         <h1 class="header text-center"><%= product.productname %></h1>
-        <h3><%= product.price %></h3>
-        <form action="/add_to_cart">
-          <button name="id" value="<%=product.id%>" class="btn btn-primary">
-            Add to Cart
-          </button>
-        </form>
+        <div
+          id="productPurchaseContainer"
+          class="d-flex flex-row align-items-center"
+        >
+          <h3>$ <%= product.price %></h3>
+          <form action="/add_to_cart">
+            <button name="id" value="<%=product.id%>" class="btn btn-primary">
+              Add to Cart
+            </button>
+          </form>
+        </div>
+
         <p><%= product.productdesc %></p>
       </div>
     </div>

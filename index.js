@@ -160,6 +160,10 @@ app.get("/product", (req, res) => {
     });
 });
 
+app.get("/cart", (req, res) => {
+  res.render("pages/cart");
+});
+
 /*
 // Authentication middleware.
 const auth = (req, res, next) => {

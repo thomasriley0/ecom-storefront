@@ -1,0 +1,21 @@
+.cartIcon {
+  margin-right: 10px;
+  cursor: pointer;
+  color: black;
+}
+
+.cartIcon :hover {
+  fill: grey;
+}
+
+@media (min-width: 992px) {
+  .cartListItem {
+    display: none;
+  }
+}
+
+@media (max-width: 992px) {
+  .cartIcon {
+    display: none;
+  }
+}
