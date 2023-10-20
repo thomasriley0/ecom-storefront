@@ -1,0 +1,26 @@
+<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+
+<main>
+  <div class="container">
+    <h1>
+      <centre>Order Summary for order number <%= orderDetails.id %>.</centre>
+    </h1>
+
+    <div class="">
+      <div class="d-flex flex-row cartItem">
+        <img
+          src="<%= orderDetails.imagelink %>"
+          alt="<%= orderDetails.productdesc %>"
+        />
+        <div class="d-flex flex-column cartBody">
+          <h4><%=orderDetails.productname %></h4>
+          <h6><%= orderDetails.price %></h6>
+          <p>Quantity: <%= orderDetails.quantity %></p>
+          <form action="/delete_item"></form>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include ('../partials/footer') %>

@@ -17,7 +17,9 @@
           <td>$ <%= order.total %></td>
           <td>
             <form action="/order">
-              <button class="btn btn-primary">View Details</button>
+              <button name="id" value="<%= order.id %>" class="btn btn-primary">
+                View Details
+              </button>
             </form>
           </td>
 

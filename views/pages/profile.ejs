@@ -10,12 +10,18 @@
         <th>Last Name</th>
         <th>Email</th>
         <th>Mobile Number</th>
+        <th></th>
 
         <tr>
           <td><%= user.first_name %></td>
           <td><%= user.last_name %></td>
           <td><%= user.email %></td>
           <td><%= user.mobile %></td>
+          <td>
+            <form action="/logout">
+              <button class="btn btn-danger">Logout</button>
+            </form>
+          </td>
         </tr>
       </thead>
     </table>

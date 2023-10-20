@@ -273,5 +273,29 @@ app.get("/orders", (req, res) => {
     });
 });
 
+app.get("/order", (req, res) => {
+  const getOrderInfo =
+    "SELECT * FROM order_items JOIN order_details ON order_items.order_id = order_details.id JOIN product ON order_items.product_id = product.id WHERE order_items.id = $1;";
+  db.any(getOrderInfo, [req.query.id])
+    .then((order) => {
+      if (user.user_id == order[0].user_id) {
+        res.render("pages/order", {
+          orderDetails: order[0],
+          user: user,
+        });
+      } else {
+        res.render("pages/404", {
+          user: user,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("pages/404", {
+        user: user,
+      });
+    });
+});
+
 app.listen(3000);
 console.log("Server is listening on port 3000");
