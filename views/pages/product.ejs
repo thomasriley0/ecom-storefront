@@ -1,0 +1,21 @@
+<%- include ('../partials/header') %> <%- include ('../partials/menu') %>
+
+<main>
+  <div class="container">
+    <div class="productContainer">
+      <img class="productImage" src="<%= product.imagelink %>" alt="" />
+      <div class="productBody">
+        <h1 class="header text-center"><%= product.productname %></h1>
+        <h3><%= product.price %></h3>
+        <form action="/add_to_cart">
+          <button name="id" value="<%=product.id%>" class="btn btn-primary">
+            Add to Cart
+          </button>
+        </form>
+        <p><%= product.productdesc %></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<%- include ('../partials/footer') %>

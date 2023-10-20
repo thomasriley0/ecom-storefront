@@ -1,26 +1,25 @@
 <%- include ('../partials/header') %> <%- include ('../partials/menu') %>
-
 <main>
   <div class="container">
-    <div id="lighting">
-      <h1 class="text-center"><%= category %></h1>
-      <div class="card-group">
-        <% products.forEach(function(product) { %>
-        <div class="card">
-          <img src="<%= product.imagelink %>" class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title"><%= product.productname %></h5>
-            <p class="card-text"><%= product.productdesc %></p>
-          </div>
-          <div class="card-body">
-            <form action="/product/<%= product.id %>" method="get">
-              <h6>$ <%= product.price %></h6>
-              <button class="btn btn-primary">Buy Now</button>
-            </form>
-          </div>
+    <h1 class="header text-center"><%= category %></h1>
+    <div class="cardContainer">
+      <% products.forEach(function(product) { %>
+      <div class="card">
+        <img src="<%= product.imagelink %>" class="cardPhoto" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title"><%= product.productname %></h5>
+          <p class="cardDescription card-text"><%= product.productdesc %></p>
         </div>
-        <% }); %>
+        <div class="card-body">
+          <form action="/product " method="get">
+            <h6>$ <%= product.price %></h6>
+            <button name="id" value="<%= product.id %>" class="btn btn-primary">
+              Buy Now
+            </button>
+          </form>
+        </div>
       </div>
+      <% }); %>
     </div>
   </div>
 </main>

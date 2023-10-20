@@ -61,11 +61,23 @@ CREATE TABLE "product_category"(
   deleted_at TIMESTAMP
 );
 
+CREATE TABLE "product_subcategory" (
+  id SERIAL PRIMARY KEY,
+  category_id INT,
+  categoryName VARCHAR(256) NOT NULL, 
+  categoryDesc TEXT NOT NULL, 
+  created_at TIMESTAMP, 
+  modified_at TIMESTAMP, 
+  FOREIGN KEY (category_id) REFERENCES "product_category"(id)
+
+);
+
 CREATE TABLE "product_inventory"(
   id SERIAL PRIMARY KEY, quantity INT NOT NULL, 
   created_at TIMESTAMP, modified_at TIMESTAMP, 
   deleted_at TIMESTAMP
 );
+
 CREATE TABLE "product"(
   id SERIAL PRIMARY KEY, 
   productName VARCHAR(256) NOT NULL, 
@@ -73,13 +85,16 @@ CREATE TABLE "product"(
   imageLink VARCHAR(256) NOT NULL,
   SKU  VARCHAR(256) NOT NULL, 
   category_id INT NOT NULL, 
+  subcategory_id INT,
   inventory_id INT NOT NULL, 
   price DECIMAL NOT NULL, 
   created_at TIMESTAMP, 
   modified_at TIMESTAMP, 
   deleted_at TIMESTAMP, 
   FOREIGN KEY (inventory_id) REFERENCES "product_inventory"(id), 
-  FOREIGN KEY (category_id) REFERENCES "product_category"(id)
+  FOREIGN KEY (category_id) REFERENCES "product_category"(id),
+  FOREIGN KEY (subcategory_id) REFERENCES "product_subcategory"(id)
+
 );
 
 CREATE TABLE "cart_item"(
