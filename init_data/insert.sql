@@ -1,5 +1,5 @@
-INSERT INTO "users" (username, password, email, first_name, last_name, mobile, created_at, modified_at) VALUES('johndoe', 'pass', 'johndoe@gmail.com', 'john', 'doe', '13193848584', '2023-10-19 18:39:00', '2023-10-19 18:39:00');
-INSERT INTO "users" (username, password, email, first_name, last_name, mobile, created_at, modified_at) VALUES('johhnyapple', 'pass', 'johhnyapple@gmail.com', 'johnny', 'apple', '12193548524', '2023-10-20 18:39:00', '2023-10-20 18:39:00');
+INSERT INTO "users" (username, password, email, first_name, last_name, mobile, created_at, modified_at) VALUES('johndoe', '$2a$12$nmc04NyhuWQsIuvmbw2mAuQiuyArhSNDwwUET/hloBZ2JaNcxnuQm', 'johndoe@gmail.com', 'john', 'doe', '13193848584', '2023-10-19 18:39:00', '2023-10-19 18:39:00');
+INSERT INTO "users" (username, password, email, first_name, last_name, mobile, created_at, modified_at) VALUES('johhnyapple', '$2a$12$nmc04NyhuWQsIuvmbw2mAuQiuyArhSNDwwUET/hloBZ2JaNcxnuQm', 'johhnyapple@gmail.com', 'johnny', 'apple', '12193548524', '2023-10-20 18:39:00', '2023-10-20 18:39:00');
 
 INSERT INTO "user_address"(user_id, address_line_1, address_line_2, city, postal_code, mobile) VALUES (1, '130 example st', 'apt 15', 'boulder', '80302', '1234567890');
 

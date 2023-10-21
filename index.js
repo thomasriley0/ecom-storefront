@@ -4,6 +4,8 @@ const pgp = require("pg-promise")();
 const path = require("path");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+var router = express.Router();
+const bcrypt = require("bcryptjs");
 
 // db config
 const dbConfig = {
@@ -189,30 +191,41 @@ app.get("/login", (req, res) => {
 // Login submission
 app.post("/login", (req, res) => {
   const email = req.body.email;
-  const password = req.body.password;
-  const query = "select * from users where email = $1 and password = $2;";
-  const values = [email, password];
+  const query = "select * from users where email = $1";
+  const values = [email];
 
   db.one(query, values)
     .then((data) => {
-      user.user_id = data.id;
-      user.username = data.username;
-      user.email = data.email;
-      user.first_name = data.first_name;
-      user.last_name = data.last_name;
-      user.mobile = data.mobile;
-      user.created_at = data.created_at;
-      user.modified_at = data.modified_at;
-
-      req.session.user = user;
-      req.session.save();
-      res.redirect("/");
+      bcrypt.compare(req.body.password, data.password, function (err, result) {
+        console.log("Login: " + result);
+        if (err) return cb(err);
+        cb(result, data, req, res);
+      });
     })
     .catch((err) => {
       console.log(err);
       res.redirect("/login");
     });
 });
+
+function cb(result, data, req, res) {
+  if (result) {
+    user.user_id = data.id;
+    user.username = data.username;
+    user.email = data.email;
+    user.first_name = data.first_name;
+    user.last_name = data.last_name;
+    user.mobile = data.mobile;
+    user.created_at = data.created_at;
+    user.modified_at = data.modified_at;
+
+    req.session.user = user;
+    req.session.save();
+    res.redirect("/");
+  } else {
+    res.redirect("/login");
+  }
+}
 
 app.get("/logout", (req, res) => {
   req.session.destroy();
@@ -291,9 +304,34 @@ app.get("/order", (req, res) => {
     })
     .catch((err) => {
       console.log(err);
-      res.render("pages/404", {
+      res.render("pages/order", {
         user: user,
       });
+    });
+});
+
+app.post("/checkout", (req, res) => {
+  const getCart =
+    "SELECT * FROM cart_item INNER JOIN shopping_session on cart_item.session_id = shopping_session.id JOIN product on product.id = cart_item.product_id WHERE user_id = $1;";
+
+  db.any(getCart, [user.user_id])
+    .then((cartDetails) => {
+      console.log(cartDetails);
+      if (user.user_id == cartDetails[0].user_id) {
+        res.render("pages/checkout", {
+          cartDetails: cartDetails,
+          itemCount: Object.keys(cartDetails).length,
+          user: user,
+        });
+      } else {
+        res.render("pages/404", {
+          user: user,
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.render("pages/404", { user: user });
     });
 });
 

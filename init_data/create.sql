@@ -6,7 +6,7 @@ CREATE TABLE "users"(
   first_name VARCHAR(64), 
   last_name VARCHAR(64), 
   mobile VARCHAR(32), 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP
 );
 
@@ -27,7 +27,7 @@ CREATE TABLE "payment_details"(
   provider VARCHAR(128) NOT NULL, 
   invoice_id VARCHAR(256),
   status VARCHAR(128) NOT NULL, 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP
 );
 
@@ -36,7 +36,7 @@ CREATE TABLE "order_details"(
   user_id INT NOT NULL, 
   total DECIMAL NOT NULL, 
   payment_id INT NOT NULL, 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP, 
   FOREIGN KEY (user_id) REFERENCES "users"(id),
   FOREIGN KEY (payment_id) REFERENCES "payment_details"(id)
@@ -47,7 +47,7 @@ CREATE TABLE "shopping_session"(
   id SERIAL PRIMARY KEY, 
   user_id INT NOT NULL, 
   total DECIMAL NOT NULL, 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP, 
   FOREIGN KEY (user_id) REFERENCES "users"(id)
 );
@@ -56,7 +56,7 @@ CREATE TABLE "product_category"(
   id SERIAL PRIMARY KEY, 
   categoryName VARCHAR(256) NOT NULL, 
   categoryDesc TEXT NOT NULL, 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP, 
   deleted_at TIMESTAMP
 );
@@ -66,7 +66,7 @@ CREATE TABLE "product_subcategory" (
   category_id INT,
   categoryName VARCHAR(256) NOT NULL, 
   categoryDesc TEXT NOT NULL, 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP, 
   FOREIGN KEY (category_id) REFERENCES "product_category"(id)
 
@@ -74,7 +74,7 @@ CREATE TABLE "product_subcategory" (
 
 CREATE TABLE "product_inventory"(
   id SERIAL PRIMARY KEY, quantity INT NOT NULL, 
-  created_at TIMESTAMP, modified_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, modified_at TIMESTAMP, 
   deleted_at TIMESTAMP
 );
 
@@ -88,7 +88,7 @@ CREATE TABLE "product"(
   subcategory_id INT,
   inventory_id INT NOT NULL, 
   price DECIMAL NOT NULL, 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP, 
   deleted_at TIMESTAMP, 
   FOREIGN KEY (inventory_id) REFERENCES "product_inventory"(id), 
@@ -102,7 +102,7 @@ CREATE TABLE "cart_item"(
   session_id INT NOT NULL, 
   product_id INT NOT NULL, 
   quantity INT NOT NULL, 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP, 
   FOREIGN KEY (session_id) REFERENCES "shopping_session"(id), 
   FOREIGN KEY (product_id) REFERENCES "product"(id)
@@ -114,7 +114,7 @@ CREATE TABLE "order_items"(
   order_id INT NOT NULL, 
   product_id INT NOT NULL, 
   quantity INT NOT NULL, 
-  created_at TIMESTAMP, 
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
   modified_at TIMESTAMP, 
   FOREIGN KEY (order_id) REFERENCES "order_details"(id), 
   FOREIGN KEY (product_id) REFERENCES "product"(id)

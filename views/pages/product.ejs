@@ -17,7 +17,7 @@
           class="d-flex flex-row align-items-center"
         >
           <h3>$ <%= product.price %></h3>
-          <form action="/add_to_cart">
+          <form action="/add_to_cart" method="post">
             <button
               name="id"
               value="<%=product.id%>"

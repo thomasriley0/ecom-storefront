@@ -18,7 +18,7 @@
           <h4><%=product.productname%></h4>
           <h6>$<%= product.price %></h6>
           <p>Quantity: <%= product.quantity %></p>
-          <form action="/delete_item">
+          <form action="/delete_item" method="POST">
             <button name="id" value="<%=product.id%>" class="btn btn-danger">
               Delete
             </button>
@@ -31,7 +31,7 @@
         <h3>
           Subtotal: (<%= itemCount %> items):
           <strong>$ <%= cartDetails[0].total %> </strong>
-          <form action="/checkout">
+          <form action="/checkout" method="POST">
             <button class="btn btn-primary">Proceed to Checkout</button>
           </form>
         </h3>
